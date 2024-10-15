@@ -1,0 +1,65 @@
+import 'package:flutter/material.dart';
+import 'package:qr_code_scanner/code/generate_qr_code.dart';
+import 'package:qr_code_scanner/code/scan_qr_code.dart';
+
+void main()=>runApp(const MyApp());
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: "QR Code Scanner and Generator",
+      home: QrScreen(),
+    );
+  }
+}
+
+
+class QrScreen extends StatefulWidget {
+  const QrScreen({super.key});
+
+  @override
+  State<QrScreen> createState() => _QrScreenState();
+}
+
+class _QrScreenState extends State<QrScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold (
+      backgroundColor: Colors.black26,
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text("QR Code Scanner and Generator"),
+        backgroundColor: Colors.blue,
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(onPressed: (){
+              setState(() {
+                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const ScanQRCode()));
+               // Get.to(const ScanQRCode());
+              });
+            },
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent),
+                child: const Text("Scan QR Code",style: TextStyle(color: Colors.black),)),
+            const SizedBox(height: 40,),
+            ElevatedButton(onPressed: (){
+             setState(() {
+               Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const GenerateQRCode()));
+              // Get.to(const GenerateQRCode());
+             });
+            },
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.greenAccent),
+                child: const Text("Generate QR Code",style: TextStyle(color: Colors.black),))
+          ],
+        ),
+      ),
+    );
+  }
+}
+
